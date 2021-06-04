@@ -1,5 +1,5 @@
 
 
-## Requirements
-- Install [PHPDotEnv](https://github.com/vlucas/phpdotenv) `composer require vlucas/phpdotenv`.
-- 
+## Setup
+- Configure env.example.php and rename it to env.php
+
