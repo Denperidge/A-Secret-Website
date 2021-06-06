@@ -2,6 +2,7 @@
 
 include('env.php');
 session_start();
+$sessionId = session_id();
 
 $conn = mysqli_connect($SQL_URL, $SQL_USER, $SQL_PASS, $SQL_DB);
 if (!$conn) {
@@ -12,7 +13,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $create_sql = "CREATE TABLE IF NOT EXISTS Secrets (
         id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
         shared BOOLEAN NOT NULL,
-        content VARCHAR($SECRET_MAX_LENGTH) NULL
+        content VARCHAR($SECRET_MAX_LENGTH) NULL,
+        sessionId VARCHAR(128) UNIQUE
     )";
 
     $shared = intval($_POST['share']);  // Record the radiobutton value
@@ -32,25 +34,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         die($conn->error);
     }
 
-    $statement = $conn->prepare('INSERT INTO Secrets (shared, content) VALUES (?, ?)');
-    $statement->bind_param('is', $shared, $content);
+    // Update/insert method from https://stackoverflow.com/a/4205207 & https://stackoverflow.com/a/4205207
+    $statement = $conn->prepare('INSERT INTO Secrets (shared, content, sessionId) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE shared=VALUES(shared), content=VALUES(content)');
+    
+    $statement->bind_param('iss', $shared, $content, $sessionId);
     $statement->execute();
 
     $statement->close();
     $conn->close();
     $page = basename(__FILE__);
     header("Location: $page", true, 303);
-
-    $_SESSION['posted'] = true;
-
-
     exit;
 }
 
-// If get, but user hasn't posted yet
-if (!isset($_SESSION['posted'])) {
-    header("Location: index.php", true, 303);
-    exit;
+
+
+// If get on secrets.php, but there's no value for the users session, the user hasn't posted yet
+$alreadyPostedSql = "SELECT * FROM Secrets WHERE sessionId = \"$sessionId\"";
+
+if ($result = $conn->query($alreadyPostedSql)) {
+    if ($result->num_rows < 1) {
+        header("Location: index.php", true, 303);
+        exit;
+    }
+} else {
+    echo 'Error when looking for existing values';
 }
 
 

@@ -1,12 +1,4 @@
 <?php 
-    session_start();
-
-    if (isset($_SESSION['posted'])) {
-        // Don't allow one person to post multiple times
-        header("Location: secrets.php", true, 302);
-        exit;
-    }
-
     include('template_top.php');
     include('env.php');
 ?>
@@ -28,6 +20,8 @@
         title="a-Z, 0-9, spaces, decimals, commas, question- and exclamationmarks.">
     <br>
     <span>(Oh, only use letters, numbers, spaces, and .,?! )</span>
+    <br>
+    <span>And note that - if you choose to share - you can only share one secret, otherwise you'll overwrite your previous!</span>
     <br>
     <input type="submit" value="Continue">
 </form>
