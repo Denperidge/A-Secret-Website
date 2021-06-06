@@ -57,15 +57,28 @@ function get_shared($conn, $sql) {
 }
 
 
-$secrets = get_shared($conn, $secretsSql);
-$secret_shared_count = $secrets->num_rows;
+$raw_secrets = get_shared($conn, $secretsSql);
+$secret_shared_count = $raw_secrets->num_rows;
 $no_secret_shared_count = get_shared($conn, $nosecretsSql)->fetch_assoc()['Total'];
 $totaltotal = $secret_shared_count + $no_secret_shared_count; 
 $secret_shared_pct = round($secret_shared_count / $totaltotal * 100, 2);
 $no_secret_shared_pct = round($no_secret_shared_count / $totaltotal * 100, 2);
 
 
-$conn->close();
+$conn->close(); 
+
+$secrets = [];
+
+while ($result = $raw_secrets->fetch_assoc()) {
+    $secrets[] = $result['Content'];
+}
+
+shuffle($secrets);
+
+foreach ($secrets as $secret) {
+    echo "<span class=\"secret\">$secret</span>";
+}
+
 ?>
 
 <?php include('template_top.php'); ?>
