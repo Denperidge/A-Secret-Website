@@ -109,6 +109,7 @@ foreach ($secrets as $secret) {
 
 <?php 
 $animations = ['ltr', 'rtl'];
+$timings = ['ease', 'linear', 'ease-in', 'ease-out', 'ease-in-out'];
 // nth-type starts counting from 1 and includes the last index
 for ($i=1; $i<=$secret_shared_count; $i++) {
     $ltrOrRtl = ($animations);
@@ -126,6 +127,7 @@ for ($i=1; $i<=$secret_shared_count; $i++) {
     // This way, there won't be a gigantic wave or delay or the like
     $animation_delay = rand(1*$i, 2*$i); 
     $top = rand(5, 85);
+    $animation_timing = $timings[array_rand($timings)];
 
     echo 
         ".secret:nth-of-type($i) {
@@ -136,6 +138,7 @@ for ($i=1; $i<=$secret_shared_count; $i++) {
             animation-name: $animation_name;
             animation-duration: ${animation_duration}s;
             animation-delay: ${animation_delay}s;
+            animation-timing-function: $animation_timing;
         }";
 }
 ?>
