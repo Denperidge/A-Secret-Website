@@ -8,7 +8,7 @@
 <h3>You now have the chance to share a secret. Anonymously. Leave it out into the open, into the world.</h3>
 <h4>Why? For the entertainment of others? For your own peace of mind? That's up to you.</h4>
 <h5>You can also choose to not share anything, and just view instead.</h5>
-<h6>Whatever you choose, you'll hopefully get to view a collection of secrets.</h6>
+<h6>Whatever you choose, once you press continue you'll see all the secrets shared.</h6>
 <p>(And hopefully not a collection of swear words and vandalism)</p>
 
 <form action="secrets.php" method="POST">
