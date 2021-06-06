@@ -78,8 +78,8 @@ $raw_secrets = get_shared($conn, $secretsSql);
 $secret_shared_count = $raw_secrets->num_rows;
 $no_secret_shared_count = get_shared($conn, $nosecretsSql)->fetch_assoc()['Total'];
 $totaltotal = $secret_shared_count + $no_secret_shared_count; 
-$secret_shared_pct = round($secret_shared_count / $totaltotal * 100, 2);
-$no_secret_shared_pct = round($no_secret_shared_count / $totaltotal * 100, 2);
+$secret_shared_pct = round($secret_shared_count / $totaltotal * 100, 0);
+$no_secret_shared_pct = round($no_secret_shared_count / $totaltotal * 100, 0);
 
 
 $conn->close(); 
