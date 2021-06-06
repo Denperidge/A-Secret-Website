@@ -87,6 +87,61 @@ foreach ($secrets as $secret) {
 
 <?php include('template_top.php'); ?>
 
+<style>
+/* Left to right */
+@keyframes ltr {
+    from { right: 100%; }
+    to { right: 0%; }
+}
+/* Right to left */
+@keyframes rtl {
+    from { left: 100%; }
+    to { left: 0%; }
+}
+
+.secret {
+    position: absolute;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: clip;
+
+}
+
+<?php 
+$animations = ['ltr', 'rtl'];
+// nth-type starts counting from 1 and includes the last index
+for ($i=1; $i<=$secret_shared_count; $i++) {
+    $ltrOrRtl = ($animations);
+
+    $animation_name = $animations[array_rand($animations)];
+    if ($animation_name == 'ltr') {
+        $start = 'right: 100%;';
+        $align = 'right';
+    } else {
+        $start = 'left: 100%;';
+        $align = 'left';
+    }
+    $animation_duration = rand(25, 80);
+    // Make larger delays possible with larger secret amounts,
+    // This way, there won't be a gigantic wave or delay or the like
+    $animation_delay = rand(1*$i, 2*$i); 
+    $top = rand(5, 85);
+
+    echo 
+        ".secret:nth-of-type($i) {
+            top: ${top}%;
+            $start
+            text-align: $align;
+            direction: $animation_name;
+            animation-name: $animation_name;
+            animation-duration: ${animation_duration}s;
+            animation-delay: ${animation_delay}s;
+        }";
+}
+?>
+
+</style>
+
 
 <footer>
     <p>Zoveel mensen deelden een secret: <?php echo "$secret_shared_count ($secret_shared_pct%)" ?></p>
