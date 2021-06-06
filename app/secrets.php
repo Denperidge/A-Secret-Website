@@ -1,6 +1,7 @@
 <?php
 
 include('env.php');
+include('template_top.php');
 
 $conn = mysqli_connect($SQL_URL, $SQL_USER, $SQL_PASS, $SQL_DB);
 if (!$conn) {
@@ -85,8 +86,6 @@ foreach ($secrets as $secret) {
 
 ?>
 
-<?php include('template_top.php'); ?>
-
 <style>
 /* Left to right */
 @keyframes ltr {
@@ -134,7 +133,6 @@ for ($i=1; $i<=$secret_shared_count; $i++) {
             top: ${top}%;
             $start
             text-align: $align;
-            direction: $animation_name;
             animation-name: $animation_name;
             animation-duration: ${animation_duration}s;
             animation-delay: ${animation_delay}s;
