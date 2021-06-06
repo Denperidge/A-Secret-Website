@@ -109,13 +109,13 @@ foreach ($secrets as $secret) {
 <style>
 /* Left to right */
 @keyframes ltr {
-    from { right: 100%; }
-    to { right: 0%; }
+    from { margin-right: 100vw; }
+    to { margin-right: -100vw; }
 }
 /* Right to left */
 @keyframes rtl {
-    from { left: 100%; }
-    to { left: 0%; }
+    from { transform: translateX(0%); }
+    to { transform: translateX(100%); }
 }
 
 .secret {
@@ -123,6 +123,7 @@ foreach ($secrets as $secret) {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: clip;
+    display: block;
 
 }
 
@@ -135,17 +136,18 @@ for ($i=1; $i<=$secret_shared_count; $i++) {
 
     $animation_name = $animations[array_rand($animations)];
     if ($animation_name == 'ltr') {
-        $start = 'right: 100%;';
-        $align = 'right';
-    } else {
-        $start = 'left: 100%;';
+        //$start = 'margin-right: 100vw;';
         $align = 'left';
+    } else {
+        //$start = 'margin-left: 100vw;';
+        $align = 'right';
     }
     $animation_duration = rand(25, 80);
+    $animation_duration =5;
     // Make larger delays possible with larger secret amounts,
     // This way, there won't be a gigantic wave or delay or the like
     $animation_delay = rand(1*$i, 2*$i); 
-    $top = rand(5, 85);
+    $top = rand(25, 95);
     $animation_timing = $timings[array_rand($timings)];
 
     echo 
