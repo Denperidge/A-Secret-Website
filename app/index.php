@@ -1,4 +1,12 @@
 <?php 
+    session_start();
+
+    if (isset($_SESSION['posted'])) {
+        // Don't allow one person to post multiple times
+        header("Location: secrets.php", true, 302);
+        exit;
+    }
+
     include('template_top.php');
     include('env.php');
 ?>

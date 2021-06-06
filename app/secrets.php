@@ -1,7 +1,7 @@
 <?php
 
 include('env.php');
-include('template_top.php');
+session_start();
 
 $conn = mysqli_connect($SQL_URL, $SQL_USER, $SQL_PASS, $SQL_DB);
 if (!$conn) {
@@ -40,9 +40,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $conn->close();
     $page = basename(__FILE__);
     header("Location: $page", true, 303);
+
+    $_SESSION['posted'] = true;
+
+
     exit;
 }
 
+// If get, but user hasn't posted yet
+if (!isset($_SESSION['posted'])) {
+    header("Location: index.php", true, 303);
+    exit;
+}
+
+
+include('template_top.php');
 // Get data to display, whether it's post or get
 $secretsSql = "SELECT Content FROM Secrets WHERE shared = 1";
 $nosecretsSql = "SELECT COUNT(*) AS Total FROM Secrets WHERE shared = 0";
