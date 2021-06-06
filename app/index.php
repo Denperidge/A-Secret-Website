@@ -1,4 +1,7 @@
-<?php include('template_top.php'); ?>
+<?php 
+    include('template_top.php');
+    include('env.php');
+?>
 
 <h1>Hello there.</h1>
 <h2>Welcome to a secret website.</h2>
@@ -12,9 +15,11 @@
     <label><input type="radio" name="share" value="1" required>I'd like to share a secret!</label><br>
     <label><input type="radio" name="share" value="0" required>I'd like to not!</label><br>
     <br>
-    <input type="text" placeholder="Type your secret here." name="secret">
+    <input type="text" placeholder="Type your secret here." name="secret"
+        pattern="<?php echo $SECRET_ALLOWED_CHARS_HTML ?>" 
+        maxlength="<?php echo $SECRET_MAX_LENGTH ?>">
     <br>
-    <span>(The secret will only be recorded if you press the share button)</span>
+    <span>(Oh, only use letters, numbers, spaces, and .,?! )</span>
     <br>
     <input type="submit" value="Continue">
 </form>
