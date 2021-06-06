@@ -36,6 +36,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $statement->execute();
 
     $statement->close();
+    $conn->close();
+    $page = basename(__FILE__);
+    header("Location: $page", true, 303);
+    exit;
 }
 
 // Get data to display, whether it's post or get

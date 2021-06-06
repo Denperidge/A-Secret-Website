@@ -1,0 +1,13 @@
+html,
+body {
+    min-height: 100%;
+}
+
+body {
+    min-height: 100%;
+    background: rgb(44, 76, 140);
+    background: linear-gradient(90deg, rgba(44, 76, 140, 1) 0%, rgba(68, 0, 131, 1) 100%);
+    color: #91fff6;
+    text-align: center;
+    font-family: 'Raleway', sans-serif;
+}
