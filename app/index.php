@@ -20,17 +20,33 @@
 <p>(And hopefully not a collection of swear words and vandalism)</p>
 
 <form action="secrets.php" method="POST">
-    <label><input type="radio" name="share" value="1" required>I'd like to share a secret!</label><br>
-    <label><input type="radio" name="share" value="0" required>I'd like to not!</label><br>
+    <label><input type="radio" name="share" value="1" required id="yesshare">I'd like to share a secret!</label><br>
+    <label><input type="radio" name="share" value="0" required id="noshare">I'd like to not!</label><br>
     <br>
-    <input type="text" placeholder="Type your secret here." name="secret"
-        pattern="<?php echo $SECRET_ALLOWED_CHARS_HTML ?>" 
-        maxlength="<?php echo $SECRET_MAX_LENGTH ?>">
+    <input type="text" placeholder="Type your secret here." name="secret" id="secret"
+        pattern="<?php echo "$SECRET_ALLOWED_CHARS_HTML{1,$SECRET_MAX_LENGTH}" ?>" 
+        title="a-Z, 0-9, spaces, decimals, commas, question- and exclamationmarks.">
     <br>
     <span>(Oh, only use letters, numbers, spaces, and .,?! )</span>
     <br>
     <input type="submit" value="Continue">
 </form>
+
+<script>
+    function EnableInput() {
+        // If 1, share secret
+        if (parseInt(this.value)) {
+            document.getElementById("secret").removeAttribute("disabled");
+        } else {
+            // If 0, don't share, disabled input
+            document.getElementById("secret").setAttribute("disabled", true);
+        }
+    }
+
+    document.getElementById("yesshare").addEventListener("input", EnableInput);
+    document.getElementById("noshare").addEventListener("input", EnableInput);
+
+</script>
 
 <?php include('template_bot.php'); ?>
 
