@@ -145,8 +145,8 @@ for ($i=1; $i<=$secret_shared_count; $i++) {
 
 
 <footer>
-    <p>Zoveel mensen deelden een secret: <?php echo "$secret_shared_count ($secret_shared_pct%)" ?></p>
-    <p>Zoveel mensen deelden geen secret: <?php echo "$no_secret_shared_count ($no_secret_shared_pct%)" ?></p>
+    <p># people who shared a secret: <?php echo "$secret_shared_count ($secret_shared_pct%)" ?></p>
+    <p># people who <span class="italic">didn't</span> share a secret: <?php echo "$no_secret_shared_count ($no_secret_shared_pct%)" ?></p>
 </footer>
 
 <?php include('template_bot.php'); ?>

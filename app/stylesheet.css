@@ -12,3 +12,7 @@ body {
     font-family: 'Raleway', sans-serif;
     overflow: hidden;
 }
+
+.italic {
+    font-style: italic;
+}
